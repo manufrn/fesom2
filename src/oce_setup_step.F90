@@ -499,7 +499,8 @@ SUBROUTINE dynamics_init(dynamics, partit, mesh)
     integer        :: smooth_dis=2
     integer        :: smooth_back_tend=4
     real(kind=WP)  :: K_back=600._WP
-    real(kind=WP)  :: c_back=0.1_8
+    real(kind=WP)  :: c_back=0.1_WP
+    logical        :: uke_advection=.false.
     integer        :: momadv_opt
     logical        :: use_freeslip =.false.
     logical        :: use_wsplit   =.false.
@@ -516,7 +517,7 @@ SUBROUTINE dynamics_init(dynamics, partit, mesh)
     namelist /dynamics_visc   / opt_visc, check_opt_visc, visc_gamma0, visc_gamma1, visc_gamma2,  &
                                 use_ivertvisc, visc_easybsreturn, &
                                 uke_scaling, uke_scaling_factor, rosb_dis, smooth_back,           &
-                                smooth_dis, smooth_back_tend, K_back, c_back
+                                smooth_dis, smooth_back_tend, K_back, c_back, uke_advection
 
     namelist /dynamics_general/ momadv_opt, use_freeslip, use_wsplit, wsplit_maxcfl, & 
                                 ldiag_KE, AB_order,                                  &
@@ -561,6 +562,7 @@ SUBROUTINE dynamics_init(dynamics, partit, mesh)
     dynamics%smooth_back_tend    = smooth_back_tend
     dynamics%K_back              = K_back
     dynamics%c_back              = c_back
+    dynamics%uke_advection       = uke_advection
     dynamics%use_ivertvisc       = use_ivertvisc
     dynamics%momadv_opt          = momadv_opt
     dynamics%use_freeslip        = use_freeslip
